@@ -1,0 +1,24 @@
+<h1>Matching Jobseekers Data</h1>
+
+<table style="border: 1px solid silver">
+    <thead>
+        <tr>
+            <% @matches.first.keys.each do |header| %>
+                <th style="padding-right: 20px; text-align: left; background-color: silver">
+                    <%= header %>
+                </th>
+            <% end %>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @matches.each do |item1| %>
+            <tr>
+                <% item1.values.each do |value| %>
+                    <td style="padding-right: 20px;"><%= value %></td>
+                <% end %>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
