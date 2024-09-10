@@ -6,22 +6,37 @@ RSpec.describe CsvProcessorController, type: :controller do
   let(:jobs_csv) { Tempfile.new(['jobs', '.csv']) }
 
   before do
-    CSV.open(jobseekers_csv_path, 'w') do |csv|
+    CSV.open(jobseekers_csv.path, 'w') do |csv|
       csv << ['id', 'name', 'skills']
       csv << ['1', 'Alice', 'Ruby, Rails']
       csv << ['2', 'Bob', 'JavaScript, React']
     end
 
-    CSV.open(jobs_csv_path, 'w') do |csv|
+    CSV.open(jobs_csv.path, 'w') do |csv|
       csv << ['id', 'title', 'required_skills']
       csv << ['1', 'Rails Developer', 'Ruby, Rails']
       csv << ['2', 'Front-end Developer', 'JavaScript, React']
     end
   end
 
+  allow(controller)
+    .to receive(:load_csv)
+    .with(Rails.root.join('lib', 'csv', 'jobseekers.csv'))
+    .and_return(CSV.read(jobseekers_csv.path, headers: true)
+    .map(&:to_h))
+
+  allow(controller)
+    .to receive(:load_csv)
+    .with(Rails.root.join('lib', 'csv', 'jobs.csv'))
+    .and_return(CSV.read(jobs_csv.path, headers: true)
+    .map(&:to_h))
+
   after do
-    File.delete(jobseekers_csv_path)
-    File.delete(jobs_csv_path)
+    jobseekers_csv.close
+    jobseekers_csv.unlink
+
+    jobs_csv.close
+    jobs_csv.unlink
   end
 
   describe 'GET #index' do
