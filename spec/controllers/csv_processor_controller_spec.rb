@@ -1,42 +1,54 @@
 require 'rails_helper'
 require 'csv'
+require 'fileutils'
 
 RSpec.describe CsvProcessorController, type: :controller do
-  let(:jobseekers_csv) { Tempfile.new(['jobseekers', '.csv']) }
-  let(:jobs_csv) { Tempfile.new(['jobs', '.csv']) }
+  let(:temp_dir) { Rails.root.join('tmp', 'csv') }
 
   before do
-    CSV.open(jobseekers_csv.path, 'w') do |csv|
+    FileUtils.mkdir_p(temp_dir)
+
+    @jobseekers_csv = Tempfile.new(['jobseekers', '.csv'], temp_dir)
+    @jobs_csv = Tempfile.new(['jobs', '.csv'], temp_dir)
+
+    CSV.open(@jobseekers_csv.path, 'w') do |csv|
       csv << ['id', 'name', 'skills']
       csv << ['1', 'Alice', 'Ruby, Rails']
       csv << ['2', 'Bob', 'JavaScript, React']
     end
 
-    CSV.open(jobs_csv.path, 'w') do |csv|
+    CSV.open(@jobs_csv.path, 'w') do |csv|
       csv << ['id', 'title', 'required_skills']
       csv << ['1', 'Rails Developer', 'Ruby, Rails']
       csv << ['2', 'Front-end Developer', 'JavaScript, React']
     end
+
+    # Check that the method is an instance method of Pathname else it could trigger an issue of mismatched type
+    # if called without checking
+
+    # wrap the original load_csv as well to override the behaviour to load mock data instead
+    allow(controller).to receive(:load_csv)
+      .with(instance_of(Pathname))
+      .and_wrap_original do |original_load_csv, arg|
+        path = arg.to_s
+        if path.include?('jobseekers')
+          CSV.read(@jobseekers_csv.path, headers: true).map(&:to_h)
+        elsif path.include?('jobs')
+          CSV.read(@jobs_csv.path, headers: true).map(&:to_h)
+        else
+          original_load_csv.call(arg)
+        end
+      end
   end
 
-  allow(controller)
-    .to receive(:load_csv)
-    .with(Rails.root.join('lib', 'csv', 'jobseekers.csv'))
-    .and_return(CSV.read(jobseekers_csv.path, headers: true)
-    .map(&:to_h))
-
-  allow(controller)
-    .to receive(:load_csv)
-    .with(Rails.root.join('lib', 'csv', 'jobs.csv'))
-    .and_return(CSV.read(jobs_csv.path, headers: true)
-    .map(&:to_h))
-
   after do
-    jobseekers_csv.close
-    jobseekers_csv.unlink
+    @jobseekers_csv.close
+    @jobseekers_csv.unlink
 
-    jobs_csv.close
-    jobs_csv.unlink
+    @jobs_csv.close
+    @jobs_csv.unlink
+
+    FileUtils.rm_rf(temp_dir)
   end
 
   describe 'GET #index' do
@@ -46,7 +58,7 @@ RSpec.describe CsvProcessorController, type: :controller do
       expect(assigns(:matches)).to be_an(Array)
 
       # In the test data above, Alice should match "Rails Developer", Bob should match "Front-end Developer"
-      expect(assigns(:matches).size).to eq(2) 
+      expect(assigns(:matches).size).to eq(2)
     end
   end
 
@@ -86,7 +98,7 @@ RSpec.describe CsvProcessorController, type: :controller do
 
   describe '#load_csv' do
     it 'loads and parses CSV files correctly' do
-      csv_data = controller.send(:load_csv, jobseekers_csv_path)
+      csv_data = controller.send(:load_csv, Pathname.new(@jobseekers_csv.path))
       expect(csv_data).to be_an(Array)
       expect(csv_data.first).to eq({
         'id' => '1',
