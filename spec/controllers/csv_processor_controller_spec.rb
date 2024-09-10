@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'csv'
 
 RSpec.describe CsvProcessorController, type: :controller do
-  let(:jobseekers_csv_path) { Rails.root.join('lib', 'csv', 'jobseekers.csv') }
-  let(:jobs_csv_path) { Rails.root.join('lib', 'csv', 'jobs.csv') }
+  let(:jobseekers_csv) { Tempfile.new(['jobseekers', '.csv']) }
+  let(:jobs_csv) { Tempfile.new(['jobs', '.csv']) }
 
   before do
     CSV.open(jobseekers_csv_path, 'w') do |csv|
