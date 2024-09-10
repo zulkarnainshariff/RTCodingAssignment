@@ -2,8 +2,12 @@ source "https://rubygems.org"
 
 gem 'ostruct'
 gem 'csv'
+<<<<<<< HEAD
 gem 'psych', '~> 5.1.2'
 
+=======
+gem 'pg'
+>>>>>>> 07d92da (Docket updates)
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
