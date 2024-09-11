@@ -29,21 +29,21 @@ def job_matching_loop(jobseeker, jobs)
         jobseeker_skills = jobseeker['skills'].split(',').map(&:strip).map(&:downcase)
 
         jobs.each do |job|
-                required_skills = job['required_skills'].split(',').map(&:strip).map(&:downcase)
+            required_skills = job['required_skills'].split(',').map(&:strip).map(&:downcase)
 
-                matching_skills = jobseeker_skills & required_skills
-                match_count = matching_skills.count
+            matching_skills = jobseeker_skills & required_skills
+            match_count = matching_skills.count
 
-                if match_count > 0
-                    matches << {
-                        jobseeker_id: jobseeker['id'],
-                        jobseeker_name: jobseeker['name'],
-                        job_id: job['id'],
-                        job_title: job['title'],
-                        matching_skill_count: match_count,
-                        matching_skill_percent: (match_count.to_f / required_skills.count.to_f * 100).round(2)
-                        }
-                end
+            if match_count > 0
+                matches << {
+                    jobseeker_id: jobseeker['id'],
+                    jobseeker_name: jobseeker['name'],
+                    job_id: job['id'],
+                    job_title: job['title'],
+                    matching_skill_count: match_count,
+                    matching_skill_percent: (match_count.to_f / required_skills.count.to_f * 100).round(2)
+                }
+            end
         end
     end
 
