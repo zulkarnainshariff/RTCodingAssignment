@@ -24,11 +24,11 @@ RSpec.describe CsvProcessorController, type: :controller do
     end
 
     # Check that the method is an instance method of Pathname else it could trigger an issue of mismatched type if is called without checking for this type
-    # This is in comparison to having the name concantenated as a
- string    
+    # This is in comparison to having the name concantenated as a string
+
     allow(controller).to receive(:load_csv)
       .with(instance_of(Pathname))
-      .and_wrap_original do |original_load_csv, arg| 
+      .and_wrap_original do |original_load_csv, arg|
         # wrap the original load_csv as well to override the behaviour to load mock data instead
 
         path = arg.to_s
