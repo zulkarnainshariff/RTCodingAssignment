@@ -35,11 +35,11 @@ def job_matching_loop(jobseeker, jobs)
                 match_count = matching_skills.count
 
                 if match_count > 0
-                    matches << { 
-                        jobseeker_id: jobseeker['id'], 
-                        jobseeker_name: jobseeker['name'], 
-                        job_id: job['id'], 
-                        job_title: job['title'], 
+                    matches << {
+                        jobseeker_id: jobseeker['id'],
+                        jobseeker_name: jobseeker['name'],
+                        job_id: job['id'],
+                        job_title: job['title'],
                         matching_skill_count: match_count,
                         matching_skill_percent: (match_count.to_f / required_skills.count.to_f * 100).round(2)
                         }
@@ -67,7 +67,7 @@ end
 
 time_taken_jobmatching_loop = Benchmark.realtime do
     jobs = CsvProcessorController.new.send(:load_csv, Rails.root.join('lib', 'csv', 'jobs.csv'))
-    job_matching_loop( @jobseekers, jobs)
+    job_matching_loop(@jobseekers, jobs)
 end
 
 

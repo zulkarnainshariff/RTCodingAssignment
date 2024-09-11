@@ -8,8 +8,8 @@ RSpec.describe CsvProcessorController, type: :controller do
   before do
     FileUtils.mkdir_p(temp_dir)
 
-    @jobseekers_csv = Tempfile.new(['jobseekers', '.csv'], temp_dir)
-    @jobs_csv = Tempfile.new(['jobs', '.csv'], temp_dir)
+    @jobseekers_csv = Tempfile.new([ 'jobseekers', '.csv' ], temp_dir)
+    @jobs_csv = Tempfile.new([ 'jobs', '.csv' ], temp_dir)
 
     CSV.open(@jobseekers_csv.path, 'w') do |csv|
       csv << ['id', 'name', 'skills']
