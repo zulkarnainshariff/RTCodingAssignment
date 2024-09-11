@@ -41,7 +41,7 @@ To get around this:
 - Switch to another browser that does not enforce the HSTS policy
 - Run via incognito mode
 - Disable the HSTS policy in the browser
-- Close the repo instead as mentioned below
+- Clone the repo instead as mentioned below
 
 
 ### 2. Cloning the repo and running it in a local Rails server.
