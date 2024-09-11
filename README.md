@@ -29,18 +29,34 @@ You would be able to confirm that the server is running by checking the logs aga
 
 eg: ``` docker logs f3ee5b6c6efd2ba2cc0b54221853111e9b18fca4852889c39765fd3400386sda ```
 
-If there are no errors, you would be able to access the application in the browser (assuming that it had been mapped to port 3000 as above):
+If there are no errors, you would see the status of the rails server with something similar to this:
+
+```
+=> Booting Puma
+=> Rails 7.2.1 application starting in development
+=> Run `bin/rails server --help` for more startup options
+Puma starting in single mode...
+* Puma version: 6.4.2 (ruby 3.2.5-p208) ("The Eagle of Durango")
+*  Min threads: 3
+*  Max threads: 3
+*  Environment: development
+*          PID: 1
+* Listening on http://0.0.0.0:3000
+Use Ctrl-C to stop
+```
+
+You would then be able to access the application in the browser (and assuming that it had been mapped to port 3000 as above):
 
 eg: ``` http://localhost:3000 ```
 
 ### Troubleshooting:
 
-There might be instances where your browser forces the protocol from HTTP to HTTPS due to HSTS (HTTP Strict Transport Security) policies. Since this assignment does not include SSL certificates, it cannot be accessed over HTTPS.
+There might be instances where your browser forces the protocol from **HTTP** to **HTTPS** due to **HTTP Strict Transport Security (HSTS)** policies. Since this assignment does not include SSL certificates, it cannot be accessed over HTTPS.
 
 To get around this, you could do either one of the following: 
 - Switch to another browser that does not enforce the HSTS policy
-- Run via incognito mode
-- Disable the HSTS policy in the browser
+- Run the application in incognito mode
+- Disable the HSTS policy in the browser (not recommended for security policy)
 - Clone the repo instead as mentioned below
 
 
