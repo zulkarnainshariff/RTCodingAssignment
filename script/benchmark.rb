@@ -15,7 +15,7 @@ def generate_large_csv(row_count)
     end
   end
 
-  puts "Loaded #{row_count} records"
+  puts "Generated #{row_count} records"
   temp_file
 end
 
