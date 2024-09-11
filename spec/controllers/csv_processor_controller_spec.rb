@@ -12,15 +12,15 @@ RSpec.describe CsvProcessorController, type: :controller do
     @jobs_csv = Tempfile.new([ 'jobs', '.csv' ], temp_dir)
 
     CSV.open(@jobseekers_csv.path, 'w') do |csv|
-      csv << ['id', 'name', 'skills']
-      csv << ['1', 'Alice', 'Ruby, Rails']
-      csv << ['2', 'Bob', 'JavaScript, React']
+      csv << [ 'id', 'name', 'skills' ]
+      csv << [ '1', 'Alice', 'Ruby, Rails' ]
+      csv << [ '2', 'Bob', 'JavaScript, React' ]
     end
 
     CSV.open(@jobs_csv.path, 'w') do |csv|
-      csv << ['id', 'title', 'required_skills']
-      csv << ['1', 'Rails Developer', 'Ruby, Rails']
-      csv << ['2', 'Front-end Developer', 'JavaScript, React']
+      csv << [ 'id', 'title', 'required_skills' ]
+      csv << [ '1', 'Rails Developer', 'Ruby, Rails' ]
+      csv << [ '2', 'Front-end Developer', 'JavaScript, React' ]
     end
 
     # Check that the method is an instance method of Pathname else it could trigger an issue of mismatched type if is called without checking for this type

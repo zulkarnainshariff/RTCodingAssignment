@@ -56,7 +56,7 @@ time_taken_map_loading = Benchmark.realtime do
 end
 
 time_taken_foreach_loading = Benchmark.realtime do
-    CSV.foreach(large_csv_file.path, headers: true).map(&:to_h)     
+    CSV.foreach(large_csv_file.path, headers: true).map(&:to_h)
 end
 
 # - data processing
