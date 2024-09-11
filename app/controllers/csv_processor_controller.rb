@@ -2,8 +2,8 @@ require "csv"
 
 class CsvProcessorController < ApplicationController
   def index
-    jobseekers = load_csv(Rails.root.join("lib", "csv","jobseekers.csv"))
-    jobs = load_csv(Rails.root.join("lib", "csv","jobs.csv"))
+    jobseekers = load_csv(Rails.root.join("lib", "csv", "jobseekers.csv"))
+    jobs = load_csv(Rails.root.join("lib", "csv", "jobs.csv"))
 
     @matches = job_matching(jobseekers, jobs)
   end

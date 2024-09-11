@@ -3,15 +3,15 @@ require 'benchmark'
 require 'tempfile'
 require_relative '../app/controllers/csv_processor_controller'
 
-#preprocessing
+# preprocessing
 def generate_large_csv(row_count)
-  temp_file = Tempfile.new(['large_file', '.csv'])
+  temp_file = Tempfile.new([ 'large_file', '.csv' ])
 
   CSV.open(temp_file.path, 'w') do |csv|
-    csv << ['id', 'name', 'skills'] # Headers
+    csv << [ 'id', 'name', 'skills' ] # Headers
 
     row_count.times do |i|
-      csv << [i + 1, "User#{i + 1}", "Skill#{i % 100}, Skill#{(i + 1) % 100}"]
+      csv << [ i + 1, "User#{i + 1}", "Skill#{i % 100}, Skill#{(i + 1) % 100}" ]
     end
   end
 
