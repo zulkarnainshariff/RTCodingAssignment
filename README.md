@@ -25,16 +25,35 @@ docker pull szulkarnain/coding_assignment-web:latest
 docker run -d -p 3000:3000 szulkarnain/coding_assignment-web:latest
 ```
 
+You would be able to confirm that the server is running by checking the logs against the Container ID that was generated after the last command:
+
+eg: ``` docker logs f3ee5b6c6efd2ba2cc0b54221853111e9b18fca4852889c39765fd3400386sda ```
+
+If there are no errors, you would be able to access the application in the browser (assuming that it had been mapped to port 3000 as above):
+
+eg: ``` http://localhost:3000 ```
+
+### Troubleshooting:
+
+There might be instances where your browser forces the protocol from HTTP to HTTPS due to HSTS (HTTP Strict Transport Security) policies. Since this assignment does not include SSL certificates, it cannot be accessed over HTTPS.
+
+To get around this: 
+- Switch to another browser that does not enforce the HSTS policy
+- Run via incognito mode
+- Disable the HSTS policy in the browser
+- Close the repo instead as mentioned below
+
+
 ### 2. Cloning the repo and running it in a local Rails server.
 - Clone the repository into your local folder in a machine that has Rails installed
   - ```git clone https://github.com/zulkarnainshariff/RTCodingAssignment.git```
 
-- Run **rails server** in the application folder to start the http server
+- Run ```rails server``` in the application folder to start the http server
 
 - Access the application through the browser with the IP Address and port displayed
 
 ### Note:
-If there are issues with running **bundle install**, depending on the platform that Ruby is running in, there might be additional dependencies needed to be installed as stated below.
+If there are issues with running ```bundle install```, depending on the platform that Ruby is running in, there might be additional dependencies needed to be installed as stated below.
 
 ### Command line/distribution tools:
 
