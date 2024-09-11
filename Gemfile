@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-gem 'ostruct'
-gem 'csv'
-gem 'psych', '~> 5.1.2'
+gem "ostruct"
+gem "csv"
+gem "psych", "~> 5.1.2"
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -57,11 +57,11 @@ end
 
 group :development, :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem 'rspec-rails', '~> 7.0.1'
+  gem "rspec-rails", "~> 7.0.1"
   gem "capybara"
   gem "selenium-webdriver"
 end
 
 group :test do
-  gem 'rails-controller-testing'
+  gem "rails-controller-testing"
 end
