@@ -37,7 +37,7 @@ eg: ``` http://localhost:3000 ```
 
 There might be instances where your browser forces the protocol from HTTP to HTTPS due to HSTS (HTTP Strict Transport Security) policies. Since this assignment does not include SSL certificates, it cannot be accessed over HTTPS.
 
-To get around this: 
+To get around this, you could do either one of the following: 
 - Switch to another browser that does not enforce the HSTS policy
 - Run via incognito mode
 - Disable the HSTS policy in the browser
