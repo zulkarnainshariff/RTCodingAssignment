@@ -23,13 +23,14 @@ RSpec.describe CsvProcessorController, type: :controller do
       csv << ['2', 'Front-end Developer', 'JavaScript, React']
     end
 
-    # Check that the method is an instance method of Pathname else it could trigger an issue of mismatched type
-    # if called without checking
-
-    # wrap the original load_csv as well to override the behaviour to load mock data instead
+    # Check that the method is an instance method of Pathname else it could trigger an issue of mismatched type if is called without checking for this type
+    # This is in comparison to having the name concantenated as a
+ string    
     allow(controller).to receive(:load_csv)
       .with(instance_of(Pathname))
-      .and_wrap_original do |original_load_csv, arg|
+      .and_wrap_original do |original_load_csv, arg| 
+        # wrap the original load_csv as well to override the behaviour to load mock data instead
+
         path = arg.to_s
         if path.include?('jobseekers')
           CSV.read(@jobseekers_csv.path, headers: true).map(&:to_h)
